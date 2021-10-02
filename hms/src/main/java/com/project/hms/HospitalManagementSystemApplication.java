@@ -6,8 +6,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class HospitalManagementSystemApplication {
 
+	//main class
 	public static void main(String[] args) {
 		SpringApplication.run(HospitalManagementSystemApplication.class, args);
+	}
+	public void fun()
+	{
+		
 	}
 
 }
