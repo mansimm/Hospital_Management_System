@@ -5,5 +5,5 @@ import com.project.hms.model.HospitalStaffDto;
 
 public interface HospitalStaffService {
 
-	public Integer addHopitalStaff(HospitalStaffDto hospitalStaffDto) throws HospitalStaffServiceException;
+	public String addHopitalStaff(HospitalStaffDto hospitalStaffDto) throws HospitalStaffServiceException;
 }
