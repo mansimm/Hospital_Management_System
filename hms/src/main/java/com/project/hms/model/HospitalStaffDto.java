@@ -2,7 +2,7 @@ package com.project.hms.model;
 
 import java.time.LocalDateTime;
 
-public class HospitalStaff {
+public class HospitalStaffDto {
 
 	private String fname;
 	private String lname;
@@ -13,7 +13,7 @@ public class HospitalStaff {
 	private String password;
 	private LocalDateTime timestamp;
 	
-	public HospitalStaff(String fname, String lname, String email, Long contact, Long addharNumber, String userName,
+	public HospitalStaffDto(String fname, String lname, String email, Long contact, Long addharNumber, String userName,
 			String password, LocalDateTime timestamp) {
 		super();
 		this.fname = fname;
