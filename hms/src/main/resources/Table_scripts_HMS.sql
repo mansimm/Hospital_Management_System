@@ -3,7 +3,7 @@ CREATE DATABASE HMS;
 USE HMS;
 
 create table hospital_staff(
-	staff_id int,
+	staff_id int AUTO_INCREMENT,
 	fname varchar(20) NOT NULL,
 	lname varchar(20) NOT NULL,
 	email varchar(20) NOT NULL,

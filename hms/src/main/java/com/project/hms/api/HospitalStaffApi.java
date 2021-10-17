@@ -17,13 +17,13 @@ import com.project.hms.service.HospitalStaffService;
 
 @CrossOrigin
 @RestController
-@RequestMapping(value="HospitalStaff")
+@RequestMapping(value="HospitalStaffAPI")
 public class HospitalStaffApi {
 
 	@Autowired
 	HospitalStaffService hospitalStaffService;
 	
-	@PostMapping(value="add/{hospitalStaffDto}")
+	@PostMapping(value="add/hospitalStaff")
 	public ResponseEntity<String> addHopitalStaff(@Valid @RequestBody HospitalStaffDto hospitalStaffDto) throws HospitalStaffServiceException
 	{
 		String s = hospitalStaffService.addHopitalStaff(hospitalStaffDto);

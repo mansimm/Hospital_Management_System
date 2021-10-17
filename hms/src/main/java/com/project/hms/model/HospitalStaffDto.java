@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 public class HospitalStaffDto {
 
+	private Integer staffId;
 	private String fname;
 	private String lname;
 	private String email;
@@ -23,7 +24,7 @@ public class HospitalStaffDto {
 		this.addharNumber = addharNumber;
 		this.userName = userName;
 		this.password = password;
-		this.timestamp = timestamp;
+		this.timestamp = LocalDateTime.now();
 	}
 
 	public String getFname() {
