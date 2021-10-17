@@ -21,7 +21,7 @@ public class HospitalStaffServiceImpl implements  HospitalStaffService{
 	
 	@Override
 	public String addHopitalStaff(HospitalStaffDto hospitalStaffDto) throws HospitalStaffServiceException {
-		System.out.println("\n\n add staff called *********");
+		//System.out.println("\n\n add staff called *********");
 		Optional<HospitalStaff> op = hospitalStaffRepo.findByAddharNumber(hospitalStaffDto.getAddharNumber());
 		HospitalStaff staff = op.orElse(null);
 		if(staff!=null)
@@ -31,7 +31,7 @@ public class HospitalStaffServiceImpl implements  HospitalStaffService{
 				//op.orElseThrow(()->new HospitalStaffServiceException("Staff already present in system"));
 		
 		staff = HospitalStaffDtoToEntity(hospitalStaffDto);
-		System.out.println("\n \n object staff : "+staff);
+		//System.out.println("\n \n object staff : "+staff);
 		hospitalStaffRepo.save(staff);
 //		HospitalStaff x = hospitalStaffRepo.save(staff);
 //		System.out.println("x : "+x);
@@ -41,7 +41,7 @@ public class HospitalStaffServiceImpl implements  HospitalStaffService{
 	
 	public HospitalStaff HospitalStaffDtoToEntity(HospitalStaffDto hospitalStaffDto)
 	{
-		System.out.println("\n\n HospitalStaffDtoToEntity called *********");
+		//System.out.println("\n\n HospitalStaffDtoToEntity called *********");
 		HospitalStaff staff = new HospitalStaff(
 				hospitalStaffDto.getFname(),
 				hospitalStaffDto.getLname(),
