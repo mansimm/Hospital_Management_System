@@ -1,5 +1,7 @@
 package com.project.hms.api;
 
+import java.security.NoSuchAlgorithmException;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +26,7 @@ public class HospitalStaffApi {
 	HospitalStaffService hospitalStaffService;
 	
 	@PostMapping(value="add/hospitalStaff")
-	public ResponseEntity<String> addHopitalStaff(@Valid @RequestBody HospitalStaffDto hospitalStaffDto) throws HospitalStaffServiceException
+	public ResponseEntity<String> addHopitalStaff(@Valid @RequestBody HospitalStaffDto hospitalStaffDto) throws HospitalStaffServiceException, NoSuchAlgorithmException
 	{
 		String s = hospitalStaffService.addHopitalStaff(hospitalStaffDto);
 		return new ResponseEntity<String>(s,HttpStatus.OK);

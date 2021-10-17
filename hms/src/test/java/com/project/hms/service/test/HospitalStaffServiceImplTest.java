@@ -1,5 +1,6 @@
 package com.project.hms.service.test;
 
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -25,7 +26,7 @@ public class HospitalStaffServiceImplTest {
 	HospitalStaffServiceImpl hospitalStaffService = new HospitalStaffServiceImpl();
 	
 	@Test
-	public void addHopitalStaffSuccessTest() throws HospitalStaffServiceException
+	public void addHopitalStaffSuccessTest() throws HospitalStaffServiceException, NoSuchAlgorithmException
 	{
 		HospitalStaffDto hospitalStaffDto = new HospitalStaffDto("Mickey","Mouse",
 				"mm@gmail.com",1234567890L,121212121212L,"Mini","mini123"
