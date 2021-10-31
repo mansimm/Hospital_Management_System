@@ -35,11 +35,9 @@ public class HospitalStaffServiceImpl implements  HospitalStaffService{
 				//op.orElseThrow(()->new HospitalStaffServiceException("Staff already present in system"));
 		
 		staff = HospitalStaffDtoToEntity(hospitalStaffDto);
-		//System.out.println("\n \n object staff : "+staff);
+
 		hospitalStaffRepo.save(staff);
-//		HospitalStaff x = hospitalStaffRepo.save(staff);
-//		System.out.println("x : "+x);
-//		System.out.println("\n\n user added "+x.getUserName());
+
 		return staff.getUserName();
 	}
 	
@@ -67,9 +65,12 @@ public class HospitalStaffServiceImpl implements  HospitalStaffService{
 		HospitalStaff staff = op.orElseThrow(()->new HospitalStaffServiceException("Staff with this username not found"));
 		if(staff.getPassword().equals(hashingUtility.getHashValue(pass)))
 		{
-			return uname+" successfully logged in ";
+			return uname+" successfully logged in";
 		}
-		return "Invalid Login";
+		else
+		{
+			throw new HospitalStaffServiceException("Invalid Login");
+		}
 	}
 
 }
