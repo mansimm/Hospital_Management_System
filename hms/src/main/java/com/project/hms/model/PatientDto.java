@@ -2,16 +2,33 @@ package com.project.hms.model;
 
 import java.time.LocalDate;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
 public class PatientDto {
 
+	@NotNull(message="{PatientValidator.ssnid.null}")
 	private Integer ssnId;
+	@NotNull(message="{PatientValidator.name.null}")
+	@Pattern(regexp="[A-Za-z]+( [A-Za-z]+)*",message="{PatientValidator.name.invalid}")
 	private String name;
+	@NotNull(message="{PatientValidator.age.null}")
 	private Integer age;
+	@NotNull(message="{PatientValidator.dateofadmission.null}")
 	private LocalDate dateOfAdmission;
+	@NotNull(message="{PatientValidator.typeofbed.null}")
 	private TypeOfBed typeOfBed;
+	
+	@NotNull(message="{PatientValidator.address.null}")
+	@Valid
 	private AddressDto address;
+	@NotNull(message="{PatientValidator.country.null}")
 	private String country;
+	@NotNull(message="{PatientValidator.city.null}")
 	private String city;
+	
+	@NotNull(message="{PatientValidator.status.null}")
 	private Status status;
 	
 	public PatientDto(Integer ssnId, String name, Integer age, LocalDate dateOfAdmission, TypeOfBed typeOfBed,

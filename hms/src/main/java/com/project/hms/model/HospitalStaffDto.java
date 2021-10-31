@@ -2,15 +2,33 @@ package com.project.hms.model;
 
 import java.time.LocalDateTime;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
 public class HospitalStaffDto {
 
 	private Integer staffId;
+	@NotNull(message="{HospitalStaffDto.fname.null}")
 	private String fname;
+	@NotNull(message="{HospitalStaffDto.lname.null}")
 	private String lname;
+	
+	@NotNull(message="{HospitalStaffDto.email.null}")
+	@Pattern(regexp="[A-Za-z0-9]+@([A-Za-z]+).(com|in)",message="{HospitalStaffDto.email.invalid}")
 	private String email;
+	@NotNull(message="{HospitalStaffDto.contact.null}")
 	private Long contact;
+	@NotNull(message="{HospitalStaffDto.addharNumber.null}")
 	private Long addharNumber;
+	
+	@NotNull(message="{HospitalStaffDto.userName.null}")
+	@Pattern(regexp="(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{7,20}",
+	message="{HospitalStaffDto.uname.invalid}")
 	private String userName;
+	
+	@NotNull(message="{HospitalStaffDto.password.null}")
+	@Pattern(regexp="(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{7,20}",
+	message="{HospitalStaffDto.password.invalid}")
 	private String password;
 	private LocalDateTime timestamp;
 	

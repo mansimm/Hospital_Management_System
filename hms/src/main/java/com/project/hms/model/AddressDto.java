@@ -1,10 +1,15 @@
 package com.project.hms.model;
 
+import javax.validation.constraints.NotNull;
+
 public class AddressDto {
 	
 	private Integer addressId;
+	@NotNull(message="{PatientAddressValidator.houseno.null}")
 	private Integer houseNo;
+	@NotNull(message="{PatientAddressValidator.area.null}")
 	private String area;
+	@NotNull(message="{PatientAddressValidator.street.null}")
 	private String street;
 	
 	public AddressDto(Integer houseNo, String area, String street) {
