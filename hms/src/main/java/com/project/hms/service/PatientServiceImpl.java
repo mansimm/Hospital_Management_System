@@ -29,10 +29,10 @@ public class PatientServiceImpl implements PatientService{
 		Optional<Patient> op = patientRepo.findBySsnId(patient.getSsnId());
 		if(op.isPresent())
 		{
-			throw new PatientServiceException("Patient is already registered");
+			throw new PatientServiceException("Patient is already registered!");
 		}
 		
-		Address a = new Address(patient.getAddress().getAddressId(),patient.getAddress().getHouseNo(),
+		Address a = new Address(patient.getAddress().getHouseNo(),
 				patient.getAddress().getArea(),patient.getAddress().getStreet());
 		
 		Patient p = new Patient(patient.getSsnId(),patient.getName(),patient.getAge(),patient.getDateOfAdmission()

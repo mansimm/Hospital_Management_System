@@ -7,9 +7,8 @@ public class AddressDto {
 	private String area;
 	private String street;
 	
-	public AddressDto(Integer addressId, Integer houseNo, String area, String street) {
+	public AddressDto(Integer houseNo, String area, String street) {
 		super();
-		this.addressId = addressId;
 		this.houseNo = houseNo;
 		this.area = area;
 		this.street = street;

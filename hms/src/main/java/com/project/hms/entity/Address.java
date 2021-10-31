@@ -17,9 +17,8 @@ public class Address {
 	
 	public Address() {}
 	
-	public Address(Integer addressId, Integer houseNo, String area, String street) {
+	public Address( Integer houseNo, String area, String street) {
 		super();
-		this.addressId = addressId;
 		this.houseNo = houseNo;
 		this.area = area;
 		this.street = street;

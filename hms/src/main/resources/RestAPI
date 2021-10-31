@@ -1,0 +1,23 @@
+
+------------------ 1. Add Patient ----------------------------------
+http://localhost:4000/hms/PatientAPI/add/patient
+
+Body -
+{
+    "ssnId":123,
+    "name":"Tony",
+    "age":70,
+    "dateOfAdmission":"2021-01-01",
+    "typeOfBed": "GeneralWard",
+    "address":{
+        "houseNo":111,
+        "area":"xyz",
+        "street":"abs"
+    },
+    "country":"Japan",
+    "city":"Sakura",
+    "status":"Active"
+
+}
+
+    
