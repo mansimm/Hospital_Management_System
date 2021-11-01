@@ -95,4 +95,24 @@ public class PatientServiceImplTest {
 		Exception e = Assertions.assertThrows(PatientServiceException.class, ()->patientServiceImpl.updatePatient(patientDto1));
 		Assertions.assertEquals("Patient not found!!!", e.getMessage());
 	}
+	@Test
+	public void deletePatientSuccess() throws PatientServiceException
+	{
+		init();
+		patientDto1.setPatientId(1);
+		Mockito.when(patientRepo.findById(1)).thenReturn(Optional.of(patient));
+		PatientDto p = patientServiceImpl.deletePatient(patientDto1);
+		Assertions.assertNotNull(p);
+		//Assertions.assertEquals(patientDto1, p);
+	}
+	@Test
+	public void deletePatientNotFoundException() throws PatientServiceException
+	{
+		init();
+		patientDto1.setPatientId(1);
+		Mockito.when(patientRepo.findById(1)).thenReturn(Optional.ofNullable(null));
+		Exception e = Assertions.assertThrows(PatientServiceException.class, ()->patientServiceImpl.deletePatient(patientDto1));
+		Assertions.assertEquals("Patient not found!!!", e.getMessage());
+	}
+	
 }
