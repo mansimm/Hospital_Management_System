@@ -1,6 +1,8 @@
 package com.project.hms.service.test;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Assertions;
@@ -114,5 +116,20 @@ public class PatientServiceImplTest {
 		Exception e = Assertions.assertThrows(PatientServiceException.class, ()->patientServiceImpl.deletePatient(patientDto1));
 		Assertions.assertEquals("Patient not found!!!", e.getMessage());
 	}
-	
+	@Test
+	public void viewPatientsByStatusSuccess() throws PatientServiceException
+	{
+		init();
+		Mockito.when(patientRepo.findByStatus(patient.getStatus())).thenReturn(List.of(patient));
+		List<PatientDto> ans = patientServiceImpl.viewPatientsByStatus(patient.getStatus());
+		Assertions.assertFalse(ans.isEmpty());
+	}
+	@Test
+	public void viewPatientsByStatusNotFoundException() throws PatientServiceException
+	{
+		init();
+		Mockito.when(patientRepo.findByStatus(patient.getStatus())).thenReturn(new ArrayList());
+		Exception e = Assertions.assertThrows(PatientServiceException.class, ()->patientServiceImpl.viewPatientsByStatus(patient.getStatus()));
+		Assertions.assertEquals("Pationts not found with status "+patient.getStatus().toString(), e.getMessage());
+	}
 }
