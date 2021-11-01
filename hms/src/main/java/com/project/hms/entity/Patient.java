@@ -1,6 +1,7 @@
 package com.project.hms.entity;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -10,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import com.project.hms.model.TypeOfBed;
@@ -39,6 +41,10 @@ public class Patient {
 	
 	@Enumerated(EnumType.STRING)
 	private Status status;
+	
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name="medicine_issued_id")
+	private List<MedicineIssued> medicineIssued;
 	
 	public Patient(){}
 	
@@ -115,7 +121,14 @@ public class Patient {
 	public void setStatus(Status status) {
 		this.status = status;
 	}
-	
+
+	public List<MedicineIssued> getMedicineIssued() {
+		return medicineIssued;
+	}
+
+	public void setMedicineIssued(List<MedicineIssued> medicineIssued) {
+		this.medicineIssued = medicineIssued;
+	}
 	
 	
 }
