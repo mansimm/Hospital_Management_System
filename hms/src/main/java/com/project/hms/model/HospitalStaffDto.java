@@ -22,7 +22,7 @@ public class HospitalStaffDto {
 	private Long addharNumber;
 	
 	@NotNull(message="{HospitalStaffDto.userName.null}")
-	@Pattern(regexp="(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{7,20}",
+	@Pattern(regexp="[A-Za-z0-9!@#$%^&*]{7,20}",
 	message="{HospitalStaffDto.uname.invalid}")
 	private String userName;
 	

@@ -39,3 +39,5 @@ create table patient(
 );
 
 
+select * from address;
+select * from patient;

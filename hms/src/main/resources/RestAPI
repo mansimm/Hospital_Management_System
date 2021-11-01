@@ -19,5 +19,6 @@ Body -
     "status":"Active"
 
 }
-
+---------------------2.Add Patient-----------------------
+http://localhost:4000/hms/PatientAPI/get/patient/1
     

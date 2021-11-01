@@ -8,6 +8,7 @@ import javax.validation.constraints.Pattern;
 
 public class PatientDto {
 
+	private Integer patientId;
 	@NotNull(message="{PatientValidator.ssnid.null}")
 	private Integer ssnId;
 	@NotNull(message="{PatientValidator.name.null}")
@@ -49,6 +50,13 @@ public class PatientDto {
 		return "PatientDto [ssnId=" + ssnId + ", name=" + name + ", age=" + age + ", dateOfAdmission=" + dateOfAdmission
 				+ ", typeOfBed=" + typeOfBed + ", address=" + address + ", country=" + country + ", city=" + city
 				+ ", status=" + status + "]";
+	}
+	
+	public Integer getPatientId() {
+		return patientId;
+	}
+	public void setPatientId(Integer patientId) {
+		this.patientId = patientId;
 	}
 	public Integer getSsnId() {
 		return ssnId;

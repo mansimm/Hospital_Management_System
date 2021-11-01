@@ -1,12 +1,16 @@
 package com.project.hms.api;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,5 +34,19 @@ public class PatientApi {
 	{
 		Patient p = patientService.addPatient(patient);
 		return new ResponseEntity(p.getName()+" is registerd successfully !",HttpStatus.OK);
+	}
+	@GetMapping(value="/get/patient/{patientId}")
+	public ResponseEntity<PatientDto> getPatient(@PathVariable 
+			@NotNull(message="{PatientValidator.patientid.null}")
+			Integer patientId) throws PatientServiceException
+	{
+		PatientDto p = patientService.getPatientDto(patientId);
+		return new ResponseEntity(p,HttpStatus.OK);
+	}
+	@PutMapping(value="/update/patient")
+	public ResponseEntity<PatientDto> updatePatient(@RequestBody @Valid PatientDto patient) throws PatientServiceException
+	{
+		PatientDto p = patientService.updatePatient(patient);
+		return new ResponseEntity(p,HttpStatus.OK);	
 	}
 }

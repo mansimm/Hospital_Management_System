@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.project.hms.entity.Address;
 import com.project.hms.entity.Patient;
 import com.project.hms.exception.PatientServiceException;
+import com.project.hms.model.AddressDto;
 import com.project.hms.model.PatientDto;
 import com.project.hms.model.Status;
 import com.project.hms.model.TypeOfBed;
@@ -40,6 +41,57 @@ public class PatientServiceImpl implements PatientService{
 		
 		patientRepo.save(p);
 		return p;
+	}
+
+	@Override
+	public Patient getPatient(Integer patientId) throws PatientServiceException {
+		Optional<Patient> op = patientRepo.findById(patientId);
+		Patient p = op.orElseThrow(()-> new PatientServiceException("Patient not found!!!"));
+		return p;
+	}
+
+	@Override
+	public PatientDto updatePatient(PatientDto patient) throws PatientServiceException {
+		Patient p = getPatient(patient.getPatientId());
+		Address a = p.getAddress();
+		if(a==null)
+			{
+				throw new PatientServiceException("Patient address not found...");
+			}
+		a.setArea(patient.getAddress().getArea());
+		a.setHouseNo(patient.getAddress().getHouseNo());
+		a.setStreet(patient.getAddress().getStreet());
+		
+		p.setAddress(a);
+		p.setAge(patient.getAge());
+		p.setCity(patient.getCity());
+		p.setCountry(patient.getCountry());
+		p.setDateOfAdmission(patient.getDateOfAdmission());
+		p.setName(patient.getName());
+		p.setSsnId(patient.getSsnId());
+		p.setStatus(patient.getStatus());
+		p.setTypeOfBed(patient.getTypeOfBed());
+		
+		return entityToDto(p);
+	}
+
+	@Override
+	public PatientDto getPatientDto(Integer patientId) throws PatientServiceException {
+		Optional<Patient> op = patientRepo.findById(patientId);
+		Patient p = op.orElseThrow(()-> new PatientServiceException("Patient not found!!!"));
+		return entityToDto(p);
+	}
+	
+	public PatientDto entityToDto(Patient p)
+	{
+		Address a = p.getAddress();
+		AddressDto address = new AddressDto(a.getHouseNo(),a.getArea(),a.getStreet());
+		PatientDto patient = new PatientDto(p.getSsnId(),p.getName(),p.getAge(),p.getDateOfAdmission(),
+				p.getTypeOfBed(),address,p.getCountry(),p.getCity(),p.getStatus());
+		//(Integer ssnId, String name, Integer age, LocalDate dateOfAdmission, TypeOfBed typeOfBed,
+		//AddressDto address, String country, String city, Status status)
+		return patient;
+		
 	}
 
 }
