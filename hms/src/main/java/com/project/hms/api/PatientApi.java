@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -47,6 +48,12 @@ public class PatientApi {
 	public ResponseEntity<PatientDto> updatePatient(@RequestBody @Valid PatientDto patient) throws PatientServiceException
 	{
 		PatientDto p = patientService.updatePatient(patient);
+		return new ResponseEntity(p,HttpStatus.OK);	
+	}
+	@DeleteMapping(value="/delete/patient")
+	public ResponseEntity<PatientDto> deletePatient(@RequestBody @Valid PatientDto patient) throws PatientServiceException
+	{
+		PatientDto p = patientService.deletePatient(patient);
 		return new ResponseEntity(p,HttpStatus.OK);	
 	}
 }

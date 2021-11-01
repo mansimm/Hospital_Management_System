@@ -92,4 +92,12 @@ public class PatientServiceImpl implements PatientService{
 		
 	}
 
+	@Override
+	public PatientDto deletePatient(PatientDto patient) throws PatientServiceException {
+		Optional<Patient> op = patientRepo.findById(patient.getPatientId());
+		Patient p = op.orElseThrow(()-> new PatientServiceException("Patient not found!!!"));
+		patientRepo.delete(p);
+		return entityToDto(p);
+	}
+
 }

@@ -11,4 +11,5 @@ public interface PatientService {
 	public Patient getPatient(Integer patientId) throws PatientServiceException;
 	public PatientDto getPatientDto(Integer patientId) throws PatientServiceException;
 	public PatientDto updatePatient(PatientDto patient) throws PatientServiceException;
+	public PatientDto deletePatient(PatientDto patient) throws PatientServiceException;
 }
