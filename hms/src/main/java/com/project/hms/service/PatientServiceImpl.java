@@ -1,6 +1,8 @@
 package com.project.hms.service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -98,6 +100,21 @@ public class PatientServiceImpl implements PatientService{
 		Patient p = op.orElseThrow(()-> new PatientServiceException("Patient not found!!!"));
 		patientRepo.delete(p);
 		return entityToDto(p);
+	}
+
+	@Override
+	public List<PatientDto> viewPatientsByStatus(Status status) throws PatientServiceException {
+		List<Patient> patientsList = patientRepo.findByStatus(status);
+		if(patientsList.isEmpty())
+		{
+			throw new PatientServiceException("Pationts not found with status "+status.toString());
+		}
+		List<PatientDto> ansList = new ArrayList();
+		for(Patient p:patientsList)
+		{
+			ansList.add(entityToDto(p));
+		}
+		return ansList;
 	}
 
 }

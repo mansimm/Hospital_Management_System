@@ -1,5 +1,7 @@
 package com.project.hms.api;
 
+import java.util.List;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.project.hms.entity.Patient;
 import com.project.hms.exception.PatientServiceException;
 import com.project.hms.model.PatientDto;
+import com.project.hms.model.Status;
 import com.project.hms.service.PatientService;
 
 @CrossOrigin
@@ -55,5 +58,13 @@ public class PatientApi {
 	{
 		PatientDto p = patientService.deletePatient(patient);
 		return new ResponseEntity(p,HttpStatus.OK);	
+	}
+	@GetMapping(value="/find/patient/{status}")
+	public ResponseEntity<List<PatientDto>> findPatientByStatus(@PathVariable
+																@NotNull(message= "{PatientValidator.status.null}")
+																Status status) throws PatientServiceException
+	{
+		List<PatientDto> ansList = patientService.viewPatientsByStatus(status);
+		return new ResponseEntity(ansList,HttpStatus.OK);
 	}
 }
