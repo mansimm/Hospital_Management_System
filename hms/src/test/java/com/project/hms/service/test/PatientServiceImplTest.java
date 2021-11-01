@@ -60,4 +60,39 @@ public class PatientServiceImplTest {
 		Exception e = Assertions.assertThrows(PatientServiceException.class, ()->patientServiceImpl.addPatient(patientDto1));
 		Assertions.assertEquals("Patient is already registered!",e.getMessage());
 	}
+	@Test
+	public void getPatientSuccessTest() throws PatientServiceException
+	{
+		init();
+		Mockito.when(patientRepo.findById(1)).thenReturn(Optional.of(patient));
+		PatientDto p = patientServiceImpl.getPatientDto(1);
+		Assertions.assertNotNull(p);
+	}
+	@Test
+	public void getPatientNotFoundTest() throws PatientServiceException
+	{
+		init();
+		Mockito.when(patientRepo.findById(1)).thenReturn(Optional.ofNullable(null));
+		Exception e = Assertions.assertThrows(PatientServiceException.class, ()->patientServiceImpl.getPatientDto(1));
+		Assertions.assertEquals("Patient not found!!!", e.getMessage());
+	}
+	@Test
+	public void updatePatientSuccess() throws PatientServiceException
+	{
+		init();
+		patientDto1.setPatientId(1);
+		Mockito.when(patientRepo.findById(1)).thenReturn(Optional.of(patient));
+		PatientDto p = patientServiceImpl.updatePatient(patientDto1);
+		Assertions.assertNotNull(p);
+		//Assertions.assertEquals(patientDto1, p);
+	}
+	@Test
+	public void updatePatientNotFoundException() throws PatientServiceException
+	{
+		init();
+		patientDto1.setPatientId(1);
+		Mockito.when(patientRepo.findById(1)).thenReturn(Optional.ofNullable(null));
+		Exception e = Assertions.assertThrows(PatientServiceException.class, ()->patientServiceImpl.updatePatient(patientDto1));
+		Assertions.assertEquals("Patient not found!!!", e.getMessage());
+	}
 }

@@ -88,8 +88,6 @@ public class PatientServiceImpl implements PatientService{
 		AddressDto address = new AddressDto(a.getHouseNo(),a.getArea(),a.getStreet());
 		PatientDto patient = new PatientDto(p.getSsnId(),p.getName(),p.getAge(),p.getDateOfAdmission(),
 				p.getTypeOfBed(),address,p.getCountry(),p.getCity(),p.getStatus());
-		//(Integer ssnId, String name, Integer age, LocalDate dateOfAdmission, TypeOfBed typeOfBed,
-		//AddressDto address, String country, String city, Status status)
 		return patient;
 		
 	}
