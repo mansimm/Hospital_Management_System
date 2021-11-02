@@ -13,7 +13,7 @@ import javax.persistence.Table;
 public class DiagnosticsConducted {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer diagnosticsConductedId;
 	
 	private Integer patientId;

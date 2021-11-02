@@ -89,6 +89,7 @@ select * from patient;
 select * from medicines;
 select * from medicine_issued;
 select * from diagnostics;
+select * from diagnostics_conducted;
 
 
 

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.hms.entity.Patient;
+import com.project.hms.exception.DiagnosticsServiceException;
 import com.project.hms.exception.PatientServiceException;
 import com.project.hms.model.PatientDto;
 import com.project.hms.model.Status;
@@ -73,6 +74,17 @@ public class PatientApi {
 			@PathVariable Integer quantity) throws PatientServiceException
 	{
 		String s = patientService.issueMedicine(patientId, medicineId, quantity);
+		return new ResponseEntity(s,HttpStatus.CREATED);
+		
+	}
+	
+	@PostMapping(value="add/diagnostics/{patientId}/{testId}/{result}/{comment}")
+	public ResponseEntity<String> addDiagnostics(@PathVariable Integer patientId,
+			@PathVariable Integer testId,
+			@PathVariable String result,
+			@PathVariable String comment) throws PatientServiceException, DiagnosticsServiceException
+	{
+		String s = patientService.addDiagnostics(patientId, testId, result, comment);
 		return new ResponseEntity(s,HttpStatus.CREATED);
 		
 	}

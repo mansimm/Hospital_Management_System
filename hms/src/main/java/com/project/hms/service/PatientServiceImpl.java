@@ -11,18 +11,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.hms.entity.Address;
+import com.project.hms.entity.Diagnosis;
+import com.project.hms.entity.DiagnosticsConducted;
 import com.project.hms.entity.Medicine;
 import com.project.hms.entity.MedicineIssued;
 import com.project.hms.entity.Patient;
+import com.project.hms.exception.DiagnosticsServiceException;
 import com.project.hms.exception.PatientServiceException;
 import com.project.hms.exception.PharmacistServiceException;
 import com.project.hms.model.AddressDto;
 import com.project.hms.model.PatientDto;
 import com.project.hms.model.Status;
 import com.project.hms.model.TypeOfBed;
+import com.project.hms.repository.DiagnosisRepo;
 import com.project.hms.repository.MedicineIssuedRepo;
 import com.project.hms.repository.MedicineRepo;
 import com.project.hms.repository.PatientRepo;
+import com.project.hms.repository.DiagnosticsConductedRepo;
 
 @Service
 @Transactional
@@ -34,6 +39,11 @@ public class PatientServiceImpl implements PatientService{
 	MedicineRepo medicineRepo;
 	@Autowired
 	MedicineIssuedRepo medicineIssuedRepo;
+	@Autowired
+	DiagnosisRepo diagnosisRepo;
+	@Autowired
+	DiagnosticsConductedRepo diagnosticsConductedRepo;
+	
 	@Override
 	public Patient addPatient(PatientDto patient) throws PatientServiceException {
 		
@@ -142,6 +152,19 @@ public class PatientServiceImpl implements PatientService{
 		MedicineIssued medicineIssued = new MedicineIssued(p.getPatientId(),m.getMedicineId(),quantity);
 		medicineIssuedRepo.save(medicineIssued);
 		return "Medicines issued successfully";
+	}
+
+	@Override
+	public String addDiagnostics(Integer patientId, Integer testId, String result, String comment) throws PatientServiceException, DiagnosticsServiceException {
+		Optional<Patient> op = patientRepo.findById(patientId);
+		Patient p = op.orElseThrow(()-> new PatientServiceException("Patient not found!!!"));
+		Optional<Diagnosis> opDia = diagnosisRepo.findById(testId);
+		Diagnosis d = opDia.orElseThrow(()-> new DiagnosticsServiceException("Diagnostics not found"));
+		
+		DiagnosticsConducted diagnosticsConducted = new DiagnosticsConducted(p.getPatientId(),d.getTestId(),
+				result,comment);
+		diagnosticsConductedRepo.save(diagnosticsConducted);
+		return "Diagnostics added successfully";
 	}
 
 }

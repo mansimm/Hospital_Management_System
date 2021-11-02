@@ -4,6 +4,7 @@ package com.project.hms.service;
 import java.util.List;
 
 import com.project.hms.entity.Patient;
+import com.project.hms.exception.DiagnosticsServiceException;
 import com.project.hms.exception.PatientServiceException;
 import com.project.hms.model.PatientDto;
 import com.project.hms.model.Status;
@@ -17,5 +18,6 @@ public interface PatientService {
 	public PatientDto deletePatient(PatientDto patient) throws PatientServiceException;
 	public List<PatientDto> viewPatientsByStatus(Status status) throws PatientServiceException;
 	public String issueMedicine(Integer patientId,Integer medicineId,Integer quantity) throws PatientServiceException;
+	public String addDiagnostics(Integer patientId,Integer testId,String result,String comment) throws PatientServiceException, DiagnosticsServiceException;
 
 }
