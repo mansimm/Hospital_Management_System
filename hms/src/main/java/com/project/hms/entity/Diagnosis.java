@@ -17,6 +17,9 @@ public class Diagnosis {
 	private String testDescription;
 	private Double testCharges;
 	
+	public Diagnosis( )
+	{}
+	
 	public Diagnosis( String testName, String testDescription, Double testCharges) {
 		this.testName = testName;
 		this.testDescription = testDescription;
