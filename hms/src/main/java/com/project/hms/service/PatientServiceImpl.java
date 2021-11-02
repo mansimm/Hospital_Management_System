@@ -159,7 +159,7 @@ public class PatientServiceImpl implements PatientService{
 		Optional<Patient> op = patientRepo.findById(patientId);
 		Patient p = op.orElseThrow(()-> new PatientServiceException("Patient not found!!!"));
 		Optional<Diagnosis> opDia = diagnosisRepo.findById(testId);
-		Diagnosis d = opDia.orElseThrow(()-> new DiagnosticsServiceException("Diagnostics not found"));
+		Diagnosis d = opDia.orElseThrow(()-> new PatientServiceException("Diagnostics not found"));
 		
 		DiagnosticsConducted diagnosticsConducted = new DiagnosticsConducted(p.getPatientId(),d.getTestId(),
 				result,comment);

@@ -14,8 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.project.hms.entity.Address;
+import com.project.hms.entity.Diagnosis;
 import com.project.hms.entity.Medicine;
 import com.project.hms.entity.Patient;
+import com.project.hms.exception.DiagnosticsServiceException;
 import com.project.hms.exception.PatientServiceException;
 import com.project.hms.model.AddressDto;
 import com.project.hms.model.PatientDto;
@@ -49,6 +51,7 @@ public class PatientServiceImplTest {
 	Patient patient;
 	Address address;
 	Medicine medicine;
+	Diagnosis diagnosis;
 	
 	public void init()
 	{
@@ -61,6 +64,9 @@ public class PatientServiceImplTest {
 		patient.setPatientId(1);
 		medicine = new Medicine("Crosine",20,10.0);
 		medicine.setMedicineId(1);
+		
+		diagnosis = new Diagnosis("Hemogram","Blood count",150.0);
+		diagnosis.setTestId(1);
 		
 	}
 	@Test
@@ -184,5 +190,34 @@ public class PatientServiceImplTest {
 		Mockito.when(medicineRepo.findById(medicine.getMedicineId())).thenReturn(Optional.of(medicine));
 		Exception e = Assertions.assertThrows(PatientServiceException.class, ()->patientServiceImpl.issueMedicine(patient.getPatientId(), medicine.getMedicineId(), 100));
 		Assertions.assertEquals("Not enough quantity available for required medicine...", e.getMessage());
+	}
+	
+	
+	@Test
+	public void addDiagnosticsSuccess() throws PatientServiceException, DiagnosticsServiceException
+	{
+		init();
+		Mockito.when(patientRepo.findById(patient.getPatientId())).thenReturn(Optional.of(patient));
+		Mockito.when(diagnosisRepo.findById(diagnosis.getTestId())).thenReturn(Optional.of(diagnosis));
+		
+		String ans = patientServiceImpl.addDiagnostics(patient.getPatientId(), diagnosis.getTestId(), "Positive", "Need iron rich diet");
+		Assertions.assertEquals("Diagnostics added successfully", ans);
+	}
+	@Test
+	public void addDiagnosticsPatientNotFoundException() throws PatientServiceException
+	{
+		init();
+		Mockito.when(patientRepo.findById(patient.getPatientId())).thenReturn(Optional.ofNullable(null));
+		Exception e = Assertions.assertThrows(PatientServiceException.class, ()->patientServiceImpl.addDiagnostics(patient.getPatientId(), diagnosis.getTestId(), "Positive", "Need iron rich diet"));
+		Assertions.assertEquals("Patient not found!!!", e.getMessage());
+	}
+	@Test
+	public void addDiagnosticsDiagnosticsNotFoundException() throws PatientServiceException
+	{
+		init();
+		Mockito.when(patientRepo.findById(patient.getPatientId())).thenReturn(Optional.of(patient));
+		Mockito.when(diagnosisRepo.findById(diagnosis.getTestId())).thenReturn(Optional.ofNullable(null));
+		Exception e = Assertions.assertThrows(PatientServiceException.class, ()->patientServiceImpl.addDiagnostics(patient.getPatientId(), diagnosis.getTestId(), "Positive", "Need iron rich diet"));
+		Assertions.assertEquals("Diagnostics not found", e.getMessage());
 	}
 }
