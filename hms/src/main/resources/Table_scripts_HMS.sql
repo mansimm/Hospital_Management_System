@@ -71,6 +71,18 @@ create table diagnosis(
 
 insert into diagnosis (test_name,test_description,test_charges) values ("Hemogram","Hemogram comprises of CBC and ESR",150);
 
+
+create table diagnostics_conducted(
+	diagnostics_conducted_id int auto_increment,
+	patient_id int not null,
+	test_id int not null,
+	date_of_diagnosis date not null,
+	result varchar(25),
+	comment_on_result varchar(30),
+	constraint hms_diagnostics_conducted_pk primary key(diagnostics_conducted_id)
+);
+
+
 select * from hospital_staff;
 select * from address;
 select * from patient;
