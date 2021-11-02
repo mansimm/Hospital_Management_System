@@ -144,7 +144,7 @@ public class PatientServiceImpl implements PatientService{
 		
 		if(quantity>m.getQuantity())
 		{
-			throw new PatientServiceException("Not enough quantity available for required medicine..");
+			throw new PatientServiceException("Not enough quantity available for required medicine...");
 		}
 		//decrease medicine quantity
 		m.setQuantity(m.getQuantity()-quantity);

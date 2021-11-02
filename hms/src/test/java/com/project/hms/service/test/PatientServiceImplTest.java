@@ -14,12 +14,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.project.hms.entity.Address;
+import com.project.hms.entity.Medicine;
 import com.project.hms.entity.Patient;
 import com.project.hms.exception.PatientServiceException;
 import com.project.hms.model.AddressDto;
 import com.project.hms.model.PatientDto;
 import com.project.hms.model.Status;
 import com.project.hms.model.TypeOfBed;
+import com.project.hms.repository.DiagnosisRepo;
+import com.project.hms.repository.DiagnosticsConductedRepo;
+import com.project.hms.repository.MedicineIssuedRepo;
+import com.project.hms.repository.MedicineRepo;
 import com.project.hms.repository.PatientRepo;
 import com.project.hms.service.PatientServiceImpl;
 
@@ -28,6 +33,14 @@ public class PatientServiceImplTest {
 
 	@Mock
 	PatientRepo patientRepo;
+	@Mock
+	MedicineRepo medicineRepo;
+	@Mock
+	DiagnosisRepo diagnosisRepo;
+	@Mock
+	DiagnosticsConductedRepo diagnosticsConductedRepo;
+	@Mock
+	MedicineIssuedRepo medicineIssuedRepo;
 	@InjectMocks
 	PatientServiceImpl patientServiceImpl= new PatientServiceImpl();
 	
@@ -35,6 +48,7 @@ public class PatientServiceImplTest {
 	PatientDto patientDto1;
 	Patient patient;
 	Address address;
+	Medicine medicine;
 	
 	public void init()
 	{
@@ -44,6 +58,9 @@ public class PatientServiceImplTest {
 				addressDto , "Japan", "Sakura", Status.Active);//already present
 		patient = new Patient(123, "Tony", 70, LocalDate.now(), TypeOfBed.GeneralWard,
 				address , "Japan", "Sakura", Status.Active);
+		patient.setPatientId(1);
+		medicine = new Medicine("Crosine",20,10.0);
+		medicine.setMedicineId(1);
 		
 	}
 	@Test
@@ -131,5 +148,41 @@ public class PatientServiceImplTest {
 		Mockito.when(patientRepo.findByStatus(patient.getStatus())).thenReturn(new ArrayList());
 		Exception e = Assertions.assertThrows(PatientServiceException.class, ()->patientServiceImpl.viewPatientsByStatus(patient.getStatus()));
 		Assertions.assertEquals("Pationts not found with status "+patient.getStatus().toString(), e.getMessage());
+	}
+	@Test
+	public void issueMedicineSuccess() throws PatientServiceException
+	{
+		init();
+		Mockito.when(patientRepo.findById(patient.getPatientId())).thenReturn(Optional.of(patient));
+		Mockito.when(medicineRepo.findById(medicine.getMedicineId())).thenReturn(Optional.of(medicine));
+		
+		String ans = patientServiceImpl.issueMedicine(patient.getPatientId(), medicine.getMedicineId(), 1);
+		Assertions.assertEquals("Medicines issued successfully", ans);
+	}
+	@Test
+	public void issueMedicinePatientNotFOundException() throws PatientServiceException
+	{
+		init();
+		Mockito.when(patientRepo.findById(patient.getPatientId())).thenReturn(Optional.ofNullable(null));
+		Exception e = Assertions.assertThrows(PatientServiceException.class, ()->patientServiceImpl.issueMedicine(patient.getPatientId(), medicine.getMedicineId(), 1));
+		Assertions.assertEquals("Patient not found!!!", e.getMessage());
+	}
+	@Test
+	public void issueMedicineMedicineNotFOundException() throws PatientServiceException
+	{
+		init();
+		Mockito.when(patientRepo.findById(patient.getPatientId())).thenReturn(Optional.of(patient));
+		Mockito.when(medicineRepo.findById(medicine.getMedicineId())).thenReturn(Optional.ofNullable(null));
+		Exception e = Assertions.assertThrows(PatientServiceException.class, ()->patientServiceImpl.issueMedicine(patient.getPatientId(), medicine.getMedicineId(), 1));
+		Assertions.assertEquals("Medicine not found", e.getMessage());
+	}
+	@Test
+	public void issueMedicinePatientServiceException() throws PatientServiceException
+	{
+		init();
+		Mockito.when(patientRepo.findById(patient.getPatientId())).thenReturn(Optional.of(patient));
+		Mockito.when(medicineRepo.findById(medicine.getMedicineId())).thenReturn(Optional.of(medicine));
+		Exception e = Assertions.assertThrows(PatientServiceException.class, ()->patientServiceImpl.issueMedicine(patient.getPatientId(), medicine.getMedicineId(), 100));
+		Assertions.assertEquals("Not enough quantity available for required medicine...", e.getMessage());
 	}
 }
