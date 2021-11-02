@@ -59,17 +59,24 @@ create table medicine_issued(
 	constraint hms_medicine_issued_pk primary key(medicine_issued_id)
 );
 
+insert into medicine_issued (patient_id,medicine_id,quantity,date_of_issue)values(1,1,2,"2021-11-03");
+
+create table diagnosis(
+	test_id int auto_increment,
+	test_name varchar(25) not null,
+	test_description varchar(50),
+	test_charges double not null,
+	constraint hms_diagnostics_pk primary key(test_id)
+);
+
+insert into diagnosis (test_name,test_description,test_charges) values ("Hemogram","Hemogram comprises of CBC and ESR",150);
+
 select * from hospital_staff;
 select * from address;
 select * from patient;
 select * from medicines;
 select * from medicine_issued;
-
-
-insert into medicine_issued (patient_id,medicine_id,quantity,date_of_issue)values(1,1,2,"2021-11-03");
-
-
-
+select * from diagnostics;
 
 
 

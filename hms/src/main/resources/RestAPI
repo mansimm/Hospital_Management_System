@@ -72,4 +72,7 @@ http://localhost:4000/hms/PatientAPI/find/patient/Discharged
 
 ---------------6.find medicine by name containing-----------
 http://localhost:4000/hms/MedicineAPI/medicine/paracet
+
+------------7.to issue medicine to patient-------
+http://localhost:4000/hms/PatientAPI/issue/medicine/1/3/5
     
