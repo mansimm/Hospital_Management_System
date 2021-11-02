@@ -1,5 +1,7 @@
 package com.project.hms.entity;
 
+import java.time.LocalDate;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,13 +20,16 @@ public class MedicineIssued {
 	private Integer patientId;
 	private Integer medicineId;
 	private Integer quantity;
+	private LocalDate dateOfIssue;
 	
-	public MedicineIssued(Integer medicineIssuedId, Integer patientId, Integer medicineId, Integer quantity) {
-		super();
-		this.medicineIssuedId = medicineIssuedId;
+	public MedicineIssued()
+	{}
+	public MedicineIssued( Integer patientId, Integer medicineId, Integer quantity) {
+	
 		this.patientId = patientId;
 		this.medicineId = medicineId;
 		this.quantity = quantity;
+		this.dateOfIssue = LocalDate.now();
 	}
 
 	public Integer getMedicineIssuedId() {
@@ -57,6 +62,12 @@ public class MedicineIssued {
 
 	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
+	}
+	public LocalDate getDateOfIssue() {
+		return dateOfIssue;
+	}
+	public void setDateOfIssue(LocalDate dateOfIssue) {
+		this.dateOfIssue = dateOfIssue;
 	}
 	
 	

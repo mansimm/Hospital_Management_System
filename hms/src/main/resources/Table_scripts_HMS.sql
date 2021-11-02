@@ -39,9 +39,6 @@ create table patient(
 );
 
 
-select * from address;
-select * from patient;
-
 create table medicines(
 	medicine_id int auto_increment,
 	medicine_name varchar(25),
@@ -58,14 +55,18 @@ create table medicine_issued(
 	patient_id int not null,
 	medicine_id int not null,
 	quantity int not null,
-	constraint hms_medicine_issued_pk primary key(medicine_issued_id),
-	constraint hms_medicine_issued_fk_1 foreign key(patient_id) references patient(patient_id),
-	constraint hms_medicine_issued_fk_2 foreign key(medicine_id) references medicines(medicine_id)
+	date_of_issue date not null,
+	constraint hms_medicine_issued_pk primary key(medicine_issued_id)
 );
 
+select * from hospital_staff;
+select * from address;
+select * from patient;
+select * from medicines;
+select * from medicine_issued;
 
 
-
+insert into medicine_issued (patient_id,medicine_id,quantity,date_of_issue)values(1,1,2,"2021-11-03");
 
 
 

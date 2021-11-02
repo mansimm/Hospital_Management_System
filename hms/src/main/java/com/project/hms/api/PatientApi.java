@@ -67,4 +67,13 @@ public class PatientApi {
 		List<PatientDto> ansList = patientService.viewPatientsByStatus(status);
 		return new ResponseEntity(ansList,HttpStatus.OK);
 	}
+	@PostMapping(value="issue/medicine/{patientId}/{medicineId}/{quantity}")
+	public ResponseEntity<String> issueMedicine(@PathVariable Integer patientId,
+			@PathVariable Integer medicineId,
+			@PathVariable Integer quantity) throws PatientServiceException
+	{
+		String s = patientService.issueMedicine(patientId, medicineId, quantity);
+		return new ResponseEntity(s,HttpStatus.CREATED);
+		
+	}
 }

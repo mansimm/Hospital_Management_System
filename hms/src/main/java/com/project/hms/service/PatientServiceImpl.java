@@ -11,12 +11,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.hms.entity.Address;
+import com.project.hms.entity.Medicine;
+import com.project.hms.entity.MedicineIssued;
 import com.project.hms.entity.Patient;
 import com.project.hms.exception.PatientServiceException;
+import com.project.hms.exception.PharmacistServiceException;
 import com.project.hms.model.AddressDto;
 import com.project.hms.model.PatientDto;
 import com.project.hms.model.Status;
 import com.project.hms.model.TypeOfBed;
+import com.project.hms.repository.MedicineIssuedRepo;
+import com.project.hms.repository.MedicineRepo;
 import com.project.hms.repository.PatientRepo;
 
 @Service
@@ -25,7 +30,10 @@ public class PatientServiceImpl implements PatientService{
 
 	@Autowired
 	PatientRepo patientRepo;
-	
+	@Autowired
+	MedicineRepo medicineRepo;
+	@Autowired
+	MedicineIssuedRepo medicineIssuedRepo;
 	@Override
 	public Patient addPatient(PatientDto patient) throws PatientServiceException {
 		
@@ -115,6 +123,25 @@ public class PatientServiceImpl implements PatientService{
 			ansList.add(entityToDto(p));
 		}
 		return ansList;
+	}
+
+	@Override
+	public String issueMedicine(Integer patientId, Integer medicineId,Integer quantity) throws PatientServiceException {
+		Optional<Patient> op = patientRepo.findById(patientId);
+		Patient p = op.orElseThrow(()-> new PatientServiceException("Patient not found!!!"));
+		Optional<Medicine> opMed = medicineRepo.findById(medicineId);
+		Medicine m = opMed.orElseThrow(()-> new PatientServiceException("Medicine not found"));
+		
+		if(quantity>m.getQuantity())
+		{
+			throw new PatientServiceException("Not enough quantity available for required medicine..");
+		}
+		//decrease medicine quantity
+		m.setQuantity(m.getQuantity()-quantity);
+
+		MedicineIssued medicineIssued = new MedicineIssued(p.getPatientId(),m.getMedicineId(),quantity);
+		medicineIssuedRepo.save(medicineIssued);
+		return "Medicines issued successfully";
 	}
 
 }

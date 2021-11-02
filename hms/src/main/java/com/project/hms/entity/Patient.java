@@ -1,6 +1,7 @@
 package com.project.hms.entity;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -41,10 +42,10 @@ public class Patient {
 	
 	@Enumerated(EnumType.STRING)
 	private Status status;
-	
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name="medicine_issued_id")
-	private List<MedicineIssued> medicineIssued;
+
+//	@OneToMany(cascade = CascadeType.ALL)
+//	@JoinColumn(name="medicine_issued_id")
+//	private List<MedicineIssued> medicineIssued;
 	
 	public Patient(){}
 	
@@ -60,6 +61,8 @@ public class Patient {
 		this.country = country;
 		this.city = city;
 		this.status = status;
+		
+		//this.medicineIssued = new ArrayList();
 	}
 	@Override
 	public String toString() {
@@ -122,12 +125,20 @@ public class Patient {
 		this.status = status;
 	}
 
-	public List<MedicineIssued> getMedicineIssued() {
-		return medicineIssued;
+//	public List<MedicineIssued> getMedicineIssued() {
+//		return medicineIssued;
+//	}
+//
+//	public void setMedicineIssued(List<MedicineIssued> medicineIssued) {
+//		this.medicineIssued = medicineIssued;
+//	}
+
+	public Integer getPatientId() {
+		return patientId;
 	}
 
-	public void setMedicineIssued(List<MedicineIssued> medicineIssued) {
-		this.medicineIssued = medicineIssued;
+	public void setPatientId(Integer patientId) {
+		this.patientId = patientId;
 	}
 	
 	

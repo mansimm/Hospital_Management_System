@@ -16,5 +16,6 @@ public interface PatientService {
 	public PatientDto updatePatient(PatientDto patient) throws PatientServiceException;
 	public PatientDto deletePatient(PatientDto patient) throws PatientServiceException;
 	public List<PatientDto> viewPatientsByStatus(Status status) throws PatientServiceException;
+	public String issueMedicine(Integer patientId,Integer medicineId,Integer quantity) throws PatientServiceException;
 
 }
