@@ -31,6 +31,8 @@ public class PatientDto {
 	
 	@NotNull(message="{PatientValidator.status.null}")
 	private Status status;
+	private LocalDate dateOfDischarge;
+	private Double billAmount;
 	
 	public PatientDto(Integer ssnId, String name, Integer age, LocalDate dateOfAdmission, TypeOfBed typeOfBed,
 			AddressDto address, String country, String city, Status status) {
@@ -111,6 +113,18 @@ public class PatientDto {
 	}
 	public void setStatus(Status status) {
 		this.status = status;
+	}
+	public LocalDate getDateOfDischarge() {
+		return dateOfDischarge;
+	}
+	public void setDateOfDischarge(LocalDate dateOfDischarge) {
+		this.dateOfDischarge = dateOfDischarge;
+	}
+	public Double getBillAmount() {
+		return billAmount;
+	}
+	public void setBillAmount(Double billAmount) {
+		this.billAmount = billAmount;
 	}
 	
 	

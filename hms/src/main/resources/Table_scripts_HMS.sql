@@ -34,8 +34,11 @@ create table patient(
 	country varchar(20) NOT NULL,
 	city varchar(20) NOT NULL,
 	status varchar(20) NOT NULL,
+	date_of_discharge date,
+	bill_id int,
 	constraint hms_patient_pk primary key(patient_id),
 	constraint hms_address_id_fk foreign key(address_id) references address(address_id)
+	constraint hms_bill_id_fk foreign key(bill_id) references bill(bill_id)
 );
 
 
@@ -82,6 +85,17 @@ create table diagnostics_conducted(
 	constraint hms_diagnostics_conducted_pk primary key(diagnostics_conducted_id)
 );
 
+create table bill(
+	bill_id int auto_increment,
+	medicine_bill double,
+	diagnisis_bill double,
+	room_bill double,
+	gst double,
+	total_bill double,
+	payment_mode varchar(15),
+	transaction_id varchar(15),
+	constraint hms_bill_pk primary_key(bill_id)
+);
 
 select * from hospital_staff;
 select * from address;

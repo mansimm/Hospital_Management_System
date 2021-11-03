@@ -30,7 +30,7 @@ public class Patient {
 	private String name;
 	private Integer age;
 	private LocalDate dateOfAdmission;
-	
+	private LocalDate dateOfDischarge;
 	@Enumerated(EnumType.STRING)
 	private TypeOfBed typeOfBed;
 	
@@ -42,6 +42,10 @@ public class Patient {
 	
 	@Enumerated(EnumType.STRING)
 	private Status status;
+	
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="bill_id")
+	private Bill bill;
 
 //	@OneToMany(cascade = CascadeType.ALL)
 //	@JoinColumn(name="medicine_issued_id")
@@ -140,6 +144,24 @@ public class Patient {
 	public void setPatientId(Integer patientId) {
 		this.patientId = patientId;
 	}
+
+	public LocalDate getDateOfDischarge() {
+		return dateOfDischarge;
+	}
+
+	public void setDateOfDischarge(LocalDate dateOfDischarge) {
+		this.dateOfDischarge = dateOfDischarge;
+	}
+
+	public Bill getBill() {
+		return bill;
+	}
+
+	public void setBill(Bill bill) {
+		this.bill = bill;
+	}
+
+
 	
 	
 }
