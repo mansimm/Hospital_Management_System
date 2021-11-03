@@ -154,6 +154,13 @@ public class BillingServiceImpl implements BillingService{
 		return gst;
 	}
 	
+	public String setDateOfDischarge(Integer patientId,LocalDate dateOfDischarge) throws BillingServiceException
+	{
+		Optional<Patient> op = patientRepo.findById(patientId);
+		Patient p = op.orElseThrow(()->new BillingServiceException("Patient not found"));
+		p.setDateOfDischarge(dateOfDischarge);
+		return "Date of discharge added successfully";
+	}
 	public BillDto entityToDto(Bill bill)
 	{
 		BillDto billDto = new BillDto(bill.getMedicineBill(),bill.getDiagnisisBill(),bill.getRoomBill(),
