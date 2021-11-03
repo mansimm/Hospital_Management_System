@@ -11,5 +11,5 @@ import com.project.hms.model.DiagnosisDto;
 public interface DiagnosisRepo extends CrudRepository<Diagnosis,Integer> {
 
 	List<Diagnosis> findByTestNameContains(String testName);
-	Double findTestChargesByTestId(Integer testId);
+	Diagnosis findByTestId(Integer testId);
 }

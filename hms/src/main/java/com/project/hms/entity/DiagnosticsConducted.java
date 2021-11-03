@@ -22,6 +22,7 @@ public class DiagnosticsConducted {
 	private String result;
 	private String commentOnResult;
 	
+	public DiagnosticsConducted() {}
 	public DiagnosticsConducted(Integer patientId, Integer testId, String result, String commentOnResult) {
 		super();
 		this.patientId = patientId;

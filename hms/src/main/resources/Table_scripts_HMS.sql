@@ -102,9 +102,9 @@ select * from address;
 select * from patient;
 select * from medicines;
 select * from medicine_issued;
-select * from diagnostics;
+select * from diagnosis;
 select * from diagnostics_conducted;
-
+select * from bill;
 
 
 

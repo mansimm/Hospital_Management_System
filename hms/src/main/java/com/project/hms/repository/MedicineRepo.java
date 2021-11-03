@@ -10,5 +10,5 @@ import com.project.hms.entity.Medicine;
 public interface MedicineRepo extends CrudRepository<Medicine,Integer>{
 
 	List<Medicine> findByMedicineNameContains(String medicineName);
-	Double findRateByMedicineId(Integer medicineId);
+	Medicine findByMedicineId(Integer medicineId);
 }

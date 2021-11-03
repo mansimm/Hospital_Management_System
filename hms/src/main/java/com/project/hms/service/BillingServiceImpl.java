@@ -1,6 +1,7 @@
 package com.project.hms.service;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.hms.entity.Bill;
+import com.project.hms.entity.Diagnosis;
 import com.project.hms.entity.DiagnosticsConducted;
 import com.project.hms.entity.Medicine;
 import com.project.hms.entity.MedicineIssued;
@@ -66,7 +68,8 @@ public class BillingServiceImpl implements BillingService{
 		Double bill = 0.0;
 		for(MedicineIssued i: medIssueList)
 		{
-			Double price = medicineRepo.findRateByMedicineId(i.getMedicineId());
+			Medicine medicine = medicineRepo.findByMedicineId(i.getMedicineId());
+			Double price = medicine.getRate();
 			bill += price*i.getQuantity();
 		}
 		return bill;
@@ -78,7 +81,8 @@ public class BillingServiceImpl implements BillingService{
 		Double bill =0.0;
 		for(DiagnosticsConducted d: diaList)
 		{
-			bill += diagnosisRepo.findTestChargesByTestId(d.getTestId());
+			Diagnosis diagnosis = diagnosisRepo.findByTestId(d.getTestId());
+			bill += diagnosis.getTestCharges();
 		}
 		return bill;
 	}
@@ -101,6 +105,7 @@ public class BillingServiceImpl implements BillingService{
 			rentPerDay = 8000.0;
 		}
 		int noOfDays = noOfDaysInHospital(patientId);
+		System.out.println("\n		No of days : "+noOfDays+" rent/day : "+rentPerDay+" total: "+noOfDays*rentPerDay);
 		return noOfDays*rentPerDay;
 	}
 
@@ -117,7 +122,8 @@ public class BillingServiceImpl implements BillingService{
 		{
 			return 1;
 		}
-		return	p.getDateOfDischarge().compareTo(p.getDateOfAdmission());		
+		//return	p.getDateOfDischarge().compareTo(p.getDateOfAdmission());	
+		return (int) ChronoUnit.DAYS.between(p.getDateOfAdmission(), p.getDateOfDischarge());
 	}
 	
 	public Double applyGST(Double roomRent)

@@ -142,7 +142,7 @@ public class BillingServiceImplTest {
 	{
 		init();
 		Mockito.when(diagnosticsConductedRepo.findByPatientId(1)).thenReturn(List.of(diagnosticsConducted));
-		Mockito.when(diagnosisRepo.findTestChargesByTestId(1)).thenReturn(150.0);
+		Mockito.when(diagnosisRepo.findByTestId(1)).thenReturn(diagnosis);
 		Double bill = billingServiceImpl.calculateDiagnisisBill(1);
 		Assertions.assertEquals(150.0, bill);
 	}
@@ -160,7 +160,7 @@ public class BillingServiceImplTest {
 	{
 		init();
 		Mockito.when(medicineIssuedRepo.findByPatientId(1)).thenReturn(List.of(medicineIssued));
-		Mockito.when(medicineRepo.findRateByMedicineId(1)).thenReturn(10.0);
+		Mockito.when(medicineRepo.findByMedicineId(1)).thenReturn(medicine);
 		Double bill = billingServiceImpl.calculateMedicineBill(1);
 		Assertions.assertEquals(20.0, bill);
 	}
