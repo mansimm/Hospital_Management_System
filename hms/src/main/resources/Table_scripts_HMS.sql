@@ -37,7 +37,7 @@ create table patient(
 	date_of_discharge date,
 	bill_id int,
 	constraint hms_patient_pk primary key(patient_id),
-	constraint hms_address_id_fk foreign key(address_id) references address(address_id)
+	constraint hms_address_id_fk foreign key(address_id) references address(address_id),
 	constraint hms_bill_id_fk foreign key(bill_id) references bill(bill_id)
 );
 
@@ -94,7 +94,7 @@ create table bill(
 	total_bill double,
 	payment_mode varchar(15),
 	transaction_id varchar(15),
-	constraint hms_bill_pk primary_key(bill_id)
+	constraint hms_bill_pk primary key(bill_id)
 );
 
 select * from hospital_staff;

@@ -23,6 +23,8 @@ public class Bill {
 	private PaymentMode paymentMode;
 	private String transactionId;
 	
+	public Bill() {}
+	
 	public Bill(Double medicineBill, Double diagnisisBill, Double roomBill, Double gst, Double totalBill,
 			PaymentMode paymentMode, String transactionId) {
 		super();
